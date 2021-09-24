@@ -1,5 +1,6 @@
 
 let count = 0;
+let previous = count;
 let sliderImg = document.getElementsByClassName('slider-img');
 let sliderBl = document.getElementById('slider-bl');
 let next = document.getElementById('next');
@@ -8,35 +9,43 @@ let indicator = document.getElementsByClassName('indicators');
 let circle = document.getElementsByClassName('circle');
 
 
+function plus() {
+	if(count < sliderImg.length-1) {
+		count++;
+		sliderBl.style = "left:"+ count * (-100) + '%' +";";
 
+		circle[previous].classList.remove('circle-active');
+		circle[count].classList.add('circle-active');
+		previous = count;
+	}
+	else if(count = sliderImg.length - 1) {
+		count = 0;
+		sliderBl.style = "left:" + 0 + '%' +";";
 
-
-
-	next.onclick = function plus() {
-		if(count > sliderImg.length - 2) {
-			count = count;
-		}
-		else if(count < sliderImg.length) {
-			count++;
-			sliderBl.style = "left:"+ count * (-100) + '%' +";";
-		};
-		circle[count-1].classList.remove ('circle-active')
-		circle[count].classList.add ('circle-active');
+		circle[previous].classList.remove('circle-active');
+		circle[count].classList.add('circle-active');
+		previous = count;
 	};
-	prew.onclick = function minus() {
-		if(count < 1) {
-			count = 0;
-		}
-		else {
-			count--;
-			sliderBl.style = "left:"+ count * (-100) + '%' +";";
-		};
-		circle[count+1].classList.remove ('circle-active')
-		circle[count].classList.add ('circle-active');
+};
+
+function minus() {
+	if(count < 1) {
+		count = 0;
+	}
+	else {
+		count--;
+		sliderBl.style = "left:"+ count * (-100) + '%' +";";
+
+		circle[previous].classList.remove('circle-active');
+		circle[count].classList.add('circle-active');
+		previous = count;
 	};
+};
 
+	next.onclick = plus();
+	prew.onclick = minus();
 
-
+let interval1 = setInterval(plus, 5000);
 
 
 
